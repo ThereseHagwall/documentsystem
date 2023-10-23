@@ -1,37 +1,32 @@
-import DocumentComponent from "@/components/DocumentComponent"
-import Link from "next/link"
+"use client";
+import DocumentComponent from "@/components/DocumentComponent";
+import { Document } from "@/interfaces";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
+export default function DocumentList() {
+    const [documents, setDocuments] = useState([]);
 
-export default function documentList() {
+    useEffect(() => {
+        const getDocuments = async () => {
+            const result = await fetch("/api");
+            const documentsFromApi = await result.json();
+            setDocuments(documentsFromApi);
+        };
+        getDocuments();
+    }, []);
 
-  const documents = [
-    {
-      id: 1,
-      author: 'Therese',
-      title: 'Dokument 1',
-      content: 'Detta är dokument 1.'
-    },
-    {
-      id: 2,
-      author: 'Jimmy',
-      title: 'Dokument 2',
-      content: 'Detta är dokument 2.'
-    },
-    {
-      id: 3,
-      author: 'Kalle',
-      title: 'Dokument 3',
-      content: 'Detta är dokument 3.'
-    },
-  ]
-
-  return (
-    <div>
-        {documents.map((document) => (
-          <Link key={document.id} href={`/documentList/${document.id}`}>
-            <DocumentComponent document={document}/>
-          </Link>
-        ))}
-    </div>
-  )
+    return (
+        <div>
+            {documents &&
+                documents.map((document: Document) => (
+                    <Link
+                        key={document.id}
+                        href={`/documentList/${document.id}`}
+                    >
+                        <DocumentComponent document={document} />
+                    </Link>
+                ))}
+        </div>
+    );
 }
