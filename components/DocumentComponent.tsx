@@ -10,7 +10,6 @@ export default function DocumentComponent(props: Props) {
             <h3 className="text-xl text-black">
                 {props.document.title} av {props.document.author}
             </h3>
-            <p>{props.document.content}</p>
         </div>
     );
 }

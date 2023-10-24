@@ -3,4 +3,5 @@ export interface Document {
   author: string;
   title: string;
   content: string;
+  created: string;
 }
