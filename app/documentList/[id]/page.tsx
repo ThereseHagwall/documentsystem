@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Document } from "@/interfaces";
-import { Document } from "postcss";
 
 export default function PostPage({ params }: { params: { id: number } }) {
     const [document, setDocument] = useState<Document | null>(null);

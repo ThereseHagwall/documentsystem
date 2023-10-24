@@ -7,7 +7,6 @@ export async function GET(req: Request, { params }: { params: { id: number } }) 
     if (!id) {
         return NextResponse.error();
     }
-
     const sql = "SELECT * FROM documents WHERE id = ?";
     const values = [id];
 
