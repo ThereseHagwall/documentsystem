@@ -1,40 +1,55 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Document } from "@/interfaces";
-import { Editor } from "@tinymce/tinymce-react";
 
-export default function PostPage({ params }: { params: { id: number } }) {
+import {useState, useEffect, ChangeEvent} from 'react';
+import {useRouter, useSearchParams} from 'next/navigation';
+import {Document} from '@/interfaces';
+import { Editor } from "@tinymce/tinymce-react";
+import { FormData } from '../addNewDoc/page';
+
+export default function EditDocument() {
     const [document, setDocument] = useState<Document | null>(null);
+    const [formData, setFormData] = useState<FormData>({
+        title: "",
+        author: "",
+        content: "",
+    });
+
+    const router = useRouter();
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+    const searchParams = useSearchParams();
+    const documentId = searchParams.get('id');
     
     useEffect(() => {
         const getDocument = async () => {
-            const result = await fetch(`/api/${params.id}`);
-            const documentFromApi = await result.json();
+            const res = await fetch(`/api/${documentId}`);
+            const documentFromApi = await res.json();
             setDocument(documentFromApi);
         };
-        getDocument();
-    }, [params.id]);
-    
-    let formattedDate = "";
-    
-    
-    if (document) {
-        const timeStampFromDatabase: string = document.created;
-        const date: Date = new Date(timeStampFromDatabase);
-        
-        const options: Intl.DateTimeFormatOptions = {
-            year: "2-digit",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-        };
+        if(documentId) getDocument();
+    }, [documentId]);
 
-        formattedDate = new Intl.DateTimeFormat("sv-SE", options).format(date);
-    }
-    const handleInputChange = () => {
-        console.log('Ändrat');
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+    
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const res = await fetch('/api/'+ documentId, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        } )
+        if(res.ok){
+            router.push('/documentList')
+        }
     }
 
     return (
@@ -47,7 +62,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
                         type="text"
                         id="title"
                         name="title"
-                        value={document.title}
+                        placeholder={document.title}
                         onChange={handleInputChange}
                     />
                     <label htmlFor="author">Skapare:</label>
@@ -56,7 +71,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
                         type="text"
                         id="author"
                         name="author"
-                        value={document.author}
+                        placeholder={document.author}
                         onChange={handleInputChange}
                     />
                     <div className="mt-10">
@@ -70,7 +85,9 @@ export default function PostPage({ params }: { params: { id: number } }) {
                                     "preview undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                             }}
                             initialValue={document.content}
+                            onEditorChange={(content: any, editor: any) => setFormData((prevData) => ({ ...prevData, content }))}
                         />
+                        <button onClick={handleSubmit} type='submit'>Spara</button>
                     </div>
                 </div>
             ) : (

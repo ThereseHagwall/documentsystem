@@ -2,7 +2,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
-interface FormData {
+export interface FormData {
     title: string;
     author: string;
     content: string;
@@ -81,6 +81,7 @@ export default function Page() {
                 onChange={handleInputChange}
             />
             <Editor
+                id="editor"
                 apiKey={apiKey}
                 init={{
                     plugins:
