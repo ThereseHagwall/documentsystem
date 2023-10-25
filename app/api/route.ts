@@ -14,7 +14,7 @@ export async function POST(req: Request, res: Response){
     const {title, author, content} = body;
 
     const results = await dbQuery({
-        sql: 'INSERT INTO documents (title, author, content) VALUES (?, ?)',
+        sql: 'INSERT INTO documents (title, author, content) VALUES (?, ?, ?)',
         values: [title, author, content]
     });
     return NextResponse.json(results, {status: 200});

@@ -27,6 +27,14 @@ export default function DocumentList() {
                         <DocumentComponent document={document} />
                     </Link>
                 ))}
+            <div className="m-2 mt-5">
+                <Link
+                    className=" bg-blue-500 rounded-lg  p-2"
+                    href={`/addNewDoc`}
+                >
+                    Lägg till nytt dokument
+                </Link>
+            </div>
         </div>
     );
 }
