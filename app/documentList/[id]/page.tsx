@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from "react";
 import { Document } from "@/interfaces";
 
@@ -31,25 +31,24 @@ export default function PostPage({ params }: { params: { id: number } }) {
     }
 
     return (
-        <div>
+        <div className="min-w-xl mx-auto p-4">
             {document ? (
-                <div className="m-10">
-                    <div className="flex gap-3 text-xl mb-2">
-                        <p>
+                <div className="bg-white rounded-lg shadow-md p-4">
+                    <div className="text-xl mb-2 flex gap-6">
+                        <div>
                             <strong>Titel: </strong>
                             {document.title}
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <strong>Skapad av:</strong> {document.author}
-                        </p>
+                        </div>
                     </div>
-                    <div>
-                        <div className="mb-2"
-                            dangerouslySetInnerHTML={{
-                                __html: document.content,
-                            }}
-                        />
-                    </div>
+                    <div
+                        className="mb-2"
+                        dangerouslySetInnerHTML={{
+                            __html: document.content,
+                        }}
+                    />
                     <p>
                         <strong>Skapad:</strong> {formattedDate}
                     </p>

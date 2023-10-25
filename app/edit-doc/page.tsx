@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Document } from "@/interfaces";
@@ -58,25 +57,40 @@ export default function EditDocument() {
         <div>
             {document ? (
                 <div className="m-10">
-                    <label htmlFor="title">Titel:</label>
-                    <input
-                        className="text-black"
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder={document.title}
-                        onChange={handleInputChange}
-                    />
-                    <label htmlFor="author">Skapare:</label>
-                    <input
-                        className="text-black"
-                        type="text"
-                        id="author"
-                        name="author"
-                        placeholder={document.author}
-                        onChange={handleInputChange}
-                    />
-                    <div className="mt-10">
+                    <div className="my-4">
+                        <label
+                            htmlFor="title"
+                            className="text-lg font-semibold"
+                        >
+                            Titel:
+                        </label>
+                        <input
+                            className="block w-full border rounded-md p-2"
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder={document.title}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+
+                    <div className="my-4">
+                        <label
+                            htmlFor="author"
+                            className="text-lg font-semibold"
+                        >
+                            Skapare:
+                        </label>
+                        <input
+                            className="block w-full border rounded-md p-2"
+                            type="text"
+                            id="author"
+                            name="author"
+                            placeholder={document.author}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="mt-8">
                         <Editor
                             id="editor"
                             apiKey={apiKey}
@@ -94,15 +108,20 @@ export default function EditDocument() {
                                 }))
                             }
                         />
-                        <div className="flex gap-2 justify-end">
+                        <div className="flex justify-end mt-6">
                             <button
-                                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all mt-2"
+                                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-all mr-4"
                                 onClick={handleSubmit}
                                 type="submit"
                             >
                                 Spara
                             </button>
-                            <Link href='/documentList' className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-all mt-2">Avbryt</Link>
+                            <Link
+                                href="/documentList"
+                                className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-all"
+                            >
+                                Avbryt
+                            </Link>
                         </div>
                     </div>
                 </div>
