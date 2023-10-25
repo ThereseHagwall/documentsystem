@@ -56,7 +56,10 @@ export default function EditDocument() {
     return (
         <div>
             {document ? (
-                <div className="m-10">
+                <div className="m-10 p-4 bg-slate-200 rounded-lg shadow-md">
+                    <h1 className="text-3xl font-semibold mb-4">
+                        Redigera dokument
+                    </h1>
                     <div className="my-4">
                         <label
                             htmlFor="title"
@@ -65,7 +68,7 @@ export default function EditDocument() {
                             Titel:
                         </label>
                         <input
-                            className="block w-full border rounded-md p-2"
+                            className="block w-full border rounded-md p-2 shadow-lg"
                             type="text"
                             id="title"
                             name="title"
@@ -82,7 +85,7 @@ export default function EditDocument() {
                             Skapare:
                         </label>
                         <input
-                            className="block w-full border rounded-md p-2"
+                            className="block w-full border rounded-md p-2 shadow-lg"
                             type="text"
                             id="author"
                             name="author"
@@ -91,23 +94,25 @@ export default function EditDocument() {
                         />
                     </div>
                     <div className="mt-8">
-                        <Editor
-                            id="editor"
-                            apiKey={apiKey}
-                            init={{
-                                plugins:
-                                    "preview mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
-                                toolbar:
-                                    "preview undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                            }}
-                            initialValue={document.content}
-                            onEditorChange={(content: any, editor: any) =>
-                                setFormData((prevData) => ({
-                                    ...prevData,
-                                    content,
-                                }))
-                            }
-                        />
+                        <div className="border rounded-md shadow-lg">
+                            <Editor
+                                id="editor"
+                                apiKey={apiKey}
+                                init={{
+                                    plugins:
+                                        "preview mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+                                    toolbar:
+                                        "preview undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                                }}
+                                initialValue={document.content}
+                                onEditorChange={(content: any, editor: any) =>
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        content,
+                                    }))
+                                }
+                            />
+                        </div>
                         <div className="flex justify-end mt-6">
                             <button
                                 className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-all mr-4"
@@ -126,7 +131,7 @@ export default function EditDocument() {
                     </div>
                 </div>
             ) : (
-                <p>Laddar dokument...</p>
+                <p className="m-10">Laddar dokument...</p>
             )}
         </div>
     );

@@ -4,9 +4,10 @@ import { Document } from "@/interfaces";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { handleEdit, handleDelete } from "@/components/DocumentActions";
 
 export default function DocumentList() {
-    const [documents, setDocuments] = useState([]);
+    const [documents, setDocuments] = useState<Document[]>([]);
 
     const router = useRouter();
 
@@ -19,58 +20,58 @@ export default function DocumentList() {
         getDocuments();
     }, []);
 
-    const handleEdit = (document: Document) => {
-        router.push("/edit-doc/?id=" + document.id);
-    };
-
-    const handleDelete = async (document: Document) => {
-        const res = await fetch("api/" + document.id, {
-            method: "DELETE",
-        });
-        if (res.ok) {
-            setDocuments(
-                documents.filter((keep: Document) => keep.id !== document.id)
-            );
-        }
-    };
-
     return (
         <div>
             {documents ? (
                 <div className="p-3 max-w-screen-lg mx-auto">
-                    <h1 className="text-black text-3xl font-semibold mb-4">
-                        Dokumentlista
-                    </h1>
-                    {documents.map((document: Document) => (
-                        <div
-                            key={document.id}
-                            className=" bg-neutral-500 rounded-lg p-3 shadow-md mb-4"
+                    <div className="flex justify-between mb-4 ">
+                        <h1 className="text-black text-3xl font-semibold mb-4">
+                            Dokumentlista
+                        </h1>
+                        <Link
+                            className="bg-blue-500 text-white rounded-lg px-4 py-2 inline-block mb-4 hover:bg-blue-600 transition-all"
+                            href="/addNewDoc"
                         >
-                            <Link href={`/documentList/${document.id}`}>
-                                <DocumentComponent document={document} />
-                            </Link>
-                            <div className="flex gap-2 justify-end mt-4">
-                                <button
-                                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-all"
-                                    onClick={() => handleEdit(document)}
-                                >
-                                    Redigera
-                                </button>
-                                <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all"
-                                    onClick={() => handleDelete(document)}
-                                >
-                                    Ta bort
-                                </button>
+                            Lägg till nytt dokument
+                        </Link>
+                    </div>
+                    <div className="flex flex-wrap -mx-2">
+                        {documents.map((document: Document) => (
+                            <div
+                                key={document.id}
+                                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 px-2 mb-4"
+                            >
+                                <div className="h-full bg-slate-200 rounded-lg p-3 shadow-md">
+                                    <Link href={`/documentList/${document.id}`}>
+                                        <DocumentComponent
+                                            document={document}
+                                        />
+                                    </Link>
+                                    <div className="flex gap-2 justify-end mt-4">
+                                        <button
+                                            className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-all"
+                                            onClick={() =>
+                                                handleEdit(router, document)
+                                            }
+                                        >
+                                            Redigera
+                                        </button>
+                                        <button
+                                            className="bg-red-500 text-white px-4 py-2 rounded-lg hover-bg-red-600 transition-all"
+                                            onClick={() =>
+                                                handleDelete(
+                                                    document,
+                                                    setDocuments
+                                                )
+                                            }
+                                        >
+                                            Ta bort
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                    <Link
-                        className="bg-blue-500 text-white rounded-lg px-4 py-2 inline-block mt-4 hover:bg-blue-600 transition-all"
-                        href="/addNewDoc"
-                    >
-                        Lägg till nytt dokument
-                    </Link>
+                        ))}
+                    </div>
                 </div>
             ) : (
                 <div>Laddar dokument ....</div>
