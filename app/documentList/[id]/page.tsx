@@ -5,7 +5,8 @@ import { Editor } from "@tinymce/tinymce-react";
 
 export default function PostPage({ params }: { params: { id: number } }) {
     const [document, setDocument] = useState<Document | null>(null);
-
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    
     useEffect(() => {
         const getDocument = async () => {
             const result = await fetch(`/api/${params.id}`);
@@ -14,13 +15,14 @@ export default function PostPage({ params }: { params: { id: number } }) {
         };
         getDocument();
     }, [params.id]);
-
+    
     let formattedDate = "";
-
+    
+    
     if (document) {
         const timeStampFromDatabase: string = document.created;
         const date: Date = new Date(timeStampFromDatabase);
-
+        
         const options: Intl.DateTimeFormatOptions = {
             year: "2-digit",
             month: "2-digit",
@@ -54,7 +56,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
                     />
                     <div className="mt-10">
                         <Editor
-                            apiKey="3fe4libsdxwjnhv8hpgzb4qo1y7yxj3fvu8t6d7c1kwrnhjo"
+                            apiKey={apiKey}
                             init={{
                                 plugins:
                                     "ai  mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",

@@ -15,6 +15,8 @@ export default function Page() {
         content: "",
     });
 
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -79,7 +81,7 @@ export default function Page() {
                 onChange={handleInputChange}
             />
             <Editor
-                apiKey="3fe4libsdxwjnhv8hpgzb4qo1y7yxj3fvu8t6d7c1kwrnhjo"
+                apiKey={apiKey}
                 init={{
                     plugins:
                         "ai mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
