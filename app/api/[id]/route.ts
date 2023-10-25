@@ -43,3 +43,17 @@ export async function PATCH(
     });
     return NextResponse.json(result, { status: 200 });
 }
+
+export async function DELETE(req: Request, {params} : {params: {id: string}}) {
+    const {id} = params
+    //HARD DELETE
+    // const result = await dbQuery({
+    //     sql: "DELETE FROM documents WHERE id = " + parseInt(id)
+    // })
+    //SOFT DELETE
+    const result = await dbQuery({
+        sql: "UPDATE documents set deleted=1 WHERE id = " + parseInt(id)
+    })
+    
+    return NextResponse.json(result, {status: 200})
+}

@@ -36,7 +36,6 @@ export default function EditDocument() {
             [name]: value,
         }));
     };
-    
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -23,6 +23,15 @@ export default function DocumentList() {
         router.push('/edit-doc/?id=' + document.id);
     }
 
+    const handleDelete = async (document: Document) => {
+        const res = await fetch('api/' + document.id, {
+            method: 'DELETE'
+        })
+        if(res.ok){
+            setDocuments(documents.filter((keep: Document) => keep.id != document.id))
+        }
+    }
+
     return (
         <div>
             {documents &&
@@ -36,7 +45,7 @@ export default function DocumentList() {
                         </Link>
                         <div className="flex gap-5">
                             <button onClick={(e) => handleEdit(document)}>Redigera</button>
-                            <button>Ta bort</button>
+                            <button onClick={(e) => handleDelete(document)}>Ta bort</button>
                         </div>
                     </div>
                 ))}

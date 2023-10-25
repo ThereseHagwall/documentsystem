@@ -4,4 +4,5 @@ export interface Document {
   title: string;
   content: string;
   created: string;
+  deleted: boolean
 }
