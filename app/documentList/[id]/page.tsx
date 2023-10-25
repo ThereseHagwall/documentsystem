@@ -33,6 +33,9 @@ export default function PostPage({ params }: { params: { id: number } }) {
 
         formattedDate = new Intl.DateTimeFormat("sv-SE", options).format(date);
     }
+    const handleInputChange = () => {
+        console.log('Ändrat');
+    }
 
     return (
         <div>
@@ -45,6 +48,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
                         id="title"
                         name="title"
                         value={document.title}
+                        onChange={handleInputChange}
                     />
                     <label htmlFor="author">Skapare:</label>
                     <input
@@ -53,24 +57,16 @@ export default function PostPage({ params }: { params: { id: number } }) {
                         id="author"
                         name="author"
                         value={document.author}
+                        onChange={handleInputChange}
                     />
                     <div className="mt-10">
                         <Editor
                             apiKey={apiKey}
                             init={{
                                 plugins:
-                                    "ai  mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+                                    "preview mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
                                 toolbar:
-                                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                                ai_request: (
-                                    request: Request,
-                                    respondWith: any
-                                ) =>
-                                    respondWith.string(() =>
-                                        Promise.reject(
-                                            "See docs to implement AI Assistant"
-                                        )
-                                    ),
+                                    "preview undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                             }}
                             initialValue={document.content}
                         />

@@ -71,7 +71,7 @@ export default function Page() {
                 value={formData.title}
                 onChange={handleInputChange}
             />
-            <label htmlFor="author">Skapare:</label>
+            <label htmlFor="author">Skapad av:</label>
             <input
                 className="text-black"
                 type="text"
@@ -84,15 +84,15 @@ export default function Page() {
                 apiKey={apiKey}
                 init={{
                     plugins:
-                        "ai mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+                        "ai mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
                     toolbar:
-                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                     ai_request: (request: Request, respondWith: any) =>
                         respondWith.string(() =>
                             Promise.reject("See docs to implement AI Assistant")
                         ),
                 }}
-                initalValue={formData.content}
+                value={formData.content}
                 onEditorChange={handleEditorChange}
             />
             <button
