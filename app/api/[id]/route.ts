@@ -38,22 +38,27 @@ export async function PATCH(
     const { title, author, content } = body;
 
     const result = await dbQuery({
-        sql: "UPDATE documents SET title=?, author=?, content=? WHERE id="+parseInt(id),
+        sql:
+            "UPDATE documents SET title=?, author=?, content=? WHERE id=" +
+            parseInt(id),
         values: [title, author, content],
     });
     return NextResponse.json(result, { status: 200 });
 }
 
-export async function DELETE(req: Request, {params} : {params: {id: string}}) {
-    const {id} = params
+export async function DELETE(
+    req: Request,
+    { params }: { params: { id: string } }
+) {
+    const { id } = params;
     //HARD DELETE
     // const result = await dbQuery({
     //     sql: "DELETE FROM documents WHERE id = " + parseInt(id)
     // })
     //SOFT DELETE
     const result = await dbQuery({
-        sql: "UPDATE documents set deleted=1 WHERE id = " + parseInt(id)
-    })
-    
-    return NextResponse.json(result, {status: 200})
+        sql: "UPDATE documents set deleted=1 WHERE id = " + parseInt(id),
+    });
+
+    return NextResponse.json(result, { status: 200 });
 }

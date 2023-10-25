@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { useRouter } from "next/navigation";
 
 export interface FormData {
     title: string;
@@ -16,7 +17,7 @@ export default function Page() {
     });
 
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
+    const router = useRouter();
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -52,6 +53,7 @@ export default function Page() {
                     author: "",
                     content: "",
                 });
+                router.push('/documentList');
             } else {
                 console.error("Postning misslyckades");
             }

@@ -15,11 +15,11 @@ export default function PostPage({ params }: { params: { id: number } }) {
     }, [params.id]);
 
     let formattedDate = "";
-    
+
     if (document) {
         const timeStampFromDatabase: string = document.created;
         const date: Date = new Date(timeStampFromDatabase);
-        
+
         const options: Intl.DateTimeFormatOptions = {
             year: "2-digit",
             month: "2-digit",
@@ -34,18 +34,25 @@ export default function PostPage({ params }: { params: { id: number } }) {
         <div>
             {document ? (
                 <div className="m-10">
-                    <h2><strong>Titel: </strong>{document.title}</h2>
-                    <p>
-                        <strong>Skapad av:</strong> {document.author}
-                    </p>
+                    <div className="flex gap-3 text-xl mb-2">
+                        <p>
+                            <strong>Titel: </strong>
+                            {document.title}
+                        </p>
+                        <p>
+                            <strong>Skapad av:</strong> {document.author}
+                        </p>
+                    </div>
+                    <div>
+                        <div className="mb-2"
+                            dangerouslySetInnerHTML={{
+                                __html: document.content,
+                            }}
+                        />
+                    </div>
                     <p>
                         <strong>Skapad:</strong> {formattedDate}
                     </p>
-                    <div>
-                        <div
-                            dangerouslySetInnerHTML={{ __html: document.content }}
-                        />
-                    </div>
                 </div>
             ) : (
                 <p>Laddar dokument...</p>

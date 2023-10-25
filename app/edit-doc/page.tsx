@@ -1,10 +1,11 @@
 "use client";
 
-import {useState, useEffect, ChangeEvent} from 'react';
-import {useRouter, useSearchParams} from 'next/navigation';
-import {Document} from '@/interfaces';
+import { useState, useEffect, ChangeEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Document } from "@/interfaces";
 import { Editor } from "@tinymce/tinymce-react";
-import { FormData } from '../addNewDoc/page';
+import { FormData } from "../addNewDoc/page";
+import Link from "next/link";
 
 export default function EditDocument() {
     const [document, setDocument] = useState<Document | null>(null);
@@ -18,18 +19,20 @@ export default function EditDocument() {
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
     const searchParams = useSearchParams();
-    const documentId = searchParams.get('id');
-    
+    const documentId = searchParams.get("id");
+
     useEffect(() => {
         const getDocument = async () => {
             const res = await fetch(`/api/${documentId}`);
             const documentFromApi = await res.json();
             setDocument(documentFromApi);
         };
-        if(documentId) getDocument();
+        if (documentId) getDocument();
     }, [documentId]);
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -39,17 +42,17 @@ export default function EditDocument() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const res = await fetch('/api/'+ documentId, {
-            method: 'PATCH',
+        const res = await fetch("/api/" + documentId, {
+            method: "PATCH",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData)
-        } )
-        if(res.ok){
-            router.push('/documentList')
+            body: JSON.stringify(formData),
+        });
+        if (res.ok) {
+            router.push("/documentList");
         }
-    }
+    };
 
     return (
         <div>
@@ -75,7 +78,7 @@ export default function EditDocument() {
                     />
                     <div className="mt-10">
                         <Editor
-                            id='editor'
+                            id="editor"
                             apiKey={apiKey}
                             init={{
                                 plugins:
@@ -84,9 +87,23 @@ export default function EditDocument() {
                                     "preview undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                             }}
                             initialValue={document.content}
-                            onEditorChange={(content: any, editor: any) => setFormData((prevData) => ({ ...prevData, content }))}
+                            onEditorChange={(content: any, editor: any) =>
+                                setFormData((prevData) => ({
+                                    ...prevData,
+                                    content,
+                                }))
+                            }
                         />
-                        <button onClick={handleSubmit} type='submit'>Spara</button>
+                        <div className="flex gap-2 justify-end">
+                            <button
+                                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all mt-2"
+                                onClick={handleSubmit}
+                                type="submit"
+                            >
+                                Spara
+                            </button>
+                            <Link href='/documentList' className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-all mt-2">Avbryt</Link>
+                        </div>
                     </div>
                 </div>
             ) : (
