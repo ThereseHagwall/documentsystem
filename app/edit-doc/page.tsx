@@ -25,6 +25,12 @@ export default function EditDocument() {
             const res = await fetch(`/api/${documentId}`);
             const documentFromApi = await res.json();
             setDocument(documentFromApi);
+
+            setFormData({
+                title: documentFromApi.title,
+                author: documentFromApi.author,
+                content: documentFromApi.content,
+            });
         };
         if (documentId) getDocument();
     }, [documentId]);
@@ -72,7 +78,7 @@ export default function EditDocument() {
                             type="text"
                             id="title"
                             name="title"
-                            placeholder={document.title}
+                            defaultValue={document.title}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -89,7 +95,7 @@ export default function EditDocument() {
                             type="text"
                             id="author"
                             name="author"
-                            placeholder={document.author}
+                            defaultValue={document.author}
                             onChange={handleInputChange}
                         />
                     </div>
