@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dokumenthanteringssystem
 
-## Getting Started
+Detta är ett skolprojekt som är byggt med [Next.js](https://nextjs.org/).
 
-First, run the development server:
+## Bakgrund till projektet
+Du har fått en kund som vill bygga ett eget system för att skapa digitala dokument. Kunden vill kunna se en översiktslista med alla skapade dokument, skapa nya, redigera och ta bort de som redan finns där. När kunden tittar på ett skapat dokument så skall det finnas möjlighet att se dokumentet både “live”, dvs utan redigeringsläget, samt i redigeringsläge.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Bygga och köra projektet
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+För att bygga och köra projektet lokalt, följ stegen nedan:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Klona projektet**  
+   Klona detta projekt till din lokala maskin genom att köra följande kommando i din terminal:
+   ```bash
+    git clone https://github.com/ThereseHagwall/documentsystem.git
+2. **Navigera till projektmappen**  
+  Gå till projektmappen genom att köra
+    ```bash
+    cd documentsystem
+3. **Öppna din favorit IDE, t.ex. vs Code**
+    ```bash
+     code .
+4. **Skapa en .env.local-fil**  
+   Skapa en .env-fil i rotmappen och lägg till din databas-koppling på följande sätt:
+    ```bash
+    DB_PORT = YOUR_KEY_HERE
+    DB_HOST = YOUR_KEY_HERE
+    DB_NAME = YOUR_KEY_HERE
+    DB_USER = YOUR_KEY_HERE
+    DB_PASSWORD = YOUR_KEY_HERE
+    NEXT_PUBLIC_API_KEY = YOUR_KEY_HERE
+5. **Installera beroenden**
+   ```bash
+   npm install
+6. **Bygga klienten och starta servern**
+    ```bash
+    npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Öppna [http://localhost:3000](http://localhost:3000) för att se resultatet.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

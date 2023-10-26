@@ -45,7 +45,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
     };
 
     return (
-        <div className="min-w-xl mx-auto p-4">
+        <div className="min-w-xl mx-auto p-4 mb-10">
             {document ? (
                 <div>
                     <div className="bg-white rounded-lg shadow-md p-4">
