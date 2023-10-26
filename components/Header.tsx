@@ -10,19 +10,20 @@ export default function Header() {
         { label: "Dokument", href: "/documentList" },
         { label: "Nytt dokument", href: "/addNewDoc" },
     ];
+
     return (
-        <header className="sticky top-0 flex items-center justify-between h-24 bg-purple-200 text-black z-10 shadow-md p-4">
+        <header className="sticky top-0 flex flex-col lg:flex-row items-center justify-between h-auto lg:h-24 bg-purple-200 text-black z-10 shadow-md p-4">
             <Link href="/">
-                <h1 className="mx-32 text-4xl font-semibold cursor-pointer">
+                <h1 className="ml-10 md:text-3xl font-semibold cursor-pointer">
                     Dokumenthanteringssystem
                 </h1>
             </Link>
-            <nav>
-                <ul className="flex space-x-6 mx-64">
+            <nav className="mt-4 lg:mt-0">
+                <ul className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-6 mx-4 lg:mx-64">
                     {links.map((link) => (
                         <Link
                             key={link.href}
-                            className= {classnames({
+                            className={classnames({
                                 "text-zinc-900 font-bold": link.href === currentPath,
                                 "text-zinc-500": link.href !== currentPath,
                                 "hover:text-zinc-800 hover:underline transition-colors": true,

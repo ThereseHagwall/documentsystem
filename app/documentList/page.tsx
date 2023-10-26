@@ -4,10 +4,11 @@ import { Document } from "@/interfaces";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { handleEdit, handleDelete } from "@/components/DocumentActions";
+import { handleEdit} from "@/components/DocumentActions";
 
 export default function DocumentList() {
     const [documents, setDocuments] = useState<Document[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const router = useRouter();
 
@@ -16,13 +17,27 @@ export default function DocumentList() {
             const result = await fetch("/api");
             const documentsFromApi = await result.json();
             setDocuments(documentsFromApi);
+            setLoading(false);
         };
         getDocuments();
     }, []);
 
+        const handleDelete = async (
+        document: { id: number }) => {
+        const res = await fetch(`/api/${document.id}`, {
+            method: "DELETE",
+        });
+        if (res.ok) {
+            setDocuments(documents.filter((keep) => keep.id != document.id)
+            );
+        }
+    };
+
     return (
         <div>
-            {documents ? (
+            {loading ? (
+                <div>Laddar dokument ....</div>
+            ) : (
                 <div className="p-3 max-w-screen-lg mx-auto">
                     <div className="flex justify-between mb-4 ">
                         <h1 className="text-black text-3xl font-semibold mb-4">
@@ -61,7 +76,6 @@ export default function DocumentList() {
                                             onClick={() =>
                                                 handleDelete(
                                                     document,
-                                                    setDocuments
                                                 )
                                             }
                                         >
@@ -73,8 +87,6 @@ export default function DocumentList() {
                         ))}
                     </div>
                 </div>
-            ) : (
-                <div>Laddar dokument ....</div>
             )}
         </div>
     );

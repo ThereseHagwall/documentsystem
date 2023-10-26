@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Document } from "@/interfaces";
-import { handleEdit, handleDelete } from "@/components/DocumentActions";
+import { handleEdit } from "@/components/DocumentActions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -33,6 +33,16 @@ export default function PostPage({ params }: { params: { id: number } }) {
         };
         formattedDate = new Intl.DateTimeFormat("sv-SE", options).format(date);
     }
+    
+    const handleDelete = async (
+        document: { id: number }) => {
+        const res = await fetch(`/api/${document.id}`, {
+            method: "DELETE",
+        });
+        if (res.ok) {
+            router.push("/documentList");
+        }
+    };
 
     return (
         <div className="min-w-xl mx-auto p-4">
@@ -75,7 +85,7 @@ export default function PostPage({ params }: { params: { id: number } }) {
                             <button
                                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all"
                                 onClick={() =>
-                                    handleDelete(document, setDocument)
+                                    handleDelete(document)
                                 }
                             >
                                 Ta bort
