@@ -64,9 +64,11 @@ export default function Page() {
     };
 
     return (
-        <div>
-            <h1 className="font-bold mt-2 text-2xl">Lägg till nytt dokument</h1>
-            <div className="max-w-xl mt-7 m-auto p-4 bg-slate-300 rounded shadow-2xl">
+        <div className="mt-4 mb-40 p-4 bg-slate-200 rounded-lg max-w-2xl m-auto flex flex-col justify-center items-center">
+            <h1 className="font-bold mt-2 text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
+                Lägg till nytt dokument
+            </h1>
+            <div className="max-w-xl mt-7 m-auto p-4 bg-slate-300 rounded ">
                 <label
                     htmlFor="title"
                     className="text-lg text-black font-semibold"
@@ -74,7 +76,7 @@ export default function Page() {
                     Titel:
                 </label>
                 <input
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 shadow-2xl"
                     type="text"
                     id="title"
                     name="title"
@@ -89,7 +91,7 @@ export default function Page() {
                     Skapad av:
                 </label>
                 <input
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 shadow-2xl"
                     type="text"
                     id="author"
                     name="author"
@@ -103,24 +105,26 @@ export default function Page() {
                 >
                     Innehåll:
                 </label>
-                <Editor
-                    id="editor"
-                    apiKey={apiKey}
-                    init={{
-                        plugins:
-                            "ai mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
-                        toolbar:
-                            "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                        ai_request: (request: Request, respondWith: any) =>
-                            respondWith.string(() =>
-                                Promise.reject(
-                                    "See docs to implement AI Assistant"
-                                )
-                            ),
-                    }}
-                    value={formData.content}
-                    onEditorChange={handleEditorChange}
-                />
+                <div className="shadow-2xl">
+                    <Editor
+                        id="editor"
+                        apiKey={apiKey}
+                        init={{
+                            plugins:
+                                "ai mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+                            toolbar:
+                                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                            ai_request: (request: Request, respondWith: any) =>
+                                respondWith.string(() =>
+                                    Promise.reject(
+                                        "See docs to implement AI Assistant"
+                                    )
+                                ),
+                        }}
+                        value={formData.content}
+                        onEditorChange={handleEditorChange}
+                    />
+                </div>
                 <button
                     className="bg-blue-500 mt-2 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition-all cursor-pointer"
                     type="submit"
