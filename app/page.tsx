@@ -7,7 +7,7 @@ export default function Home() {
             <div>Välkommen hit!</div>
             <div>Detta är en dokumenthanterings sida. </div>
             <div>Navigera till de olika sidorna genom länkarna i headern.</div>
-            <Image className="mt-20" src={documentPic} width={400} alt="" />
+            <Image priority className="mt-20" src={documentPic} width={400} alt="" />
         </div>
     );
 }
