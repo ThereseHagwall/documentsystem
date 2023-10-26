@@ -7,7 +7,7 @@ export default function Header() {
     const currentPath = usePathname();
     const links = [
         { label: "Startsida", href: "/" },
-        { label: "Dokument", href: "/documentList" },
+        { label: "Alla dokument", href: "/documentList" },
         { label: "Nytt dokument", href: "/addNewDoc" },
     ];
 
