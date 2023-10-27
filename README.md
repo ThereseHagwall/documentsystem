@@ -21,7 +21,7 @@ För att bygga och köra projektet lokalt, följ stegen nedan:
     ```bash
      code .
 4. **Skapa en .env.local-fil**  
-   Skapa en .env-fil i rotmappen och lägg till din databas-koppling. Du behöver också skapa ett konto på [tinyCloud](https://www.tiny.cloud/) {:target="_blank"} om du inte vill få upp ett litet meddelande om att det fattas en nykel till api när du använder editorn.  
+   Skapa en .env-fil i rotmappen och lägg till din databas-koppling. Du behöver också skapa ett konto på [tinyCloud](https://www.tiny.cloud/) om du inte vill få upp ett litet meddelande om att det fattas en nykel till api när du använder editorn.  
     ```bash
     DB_PORT = YOUR_KEY_HERE
     DB_HOST = YOUR_KEY_HERE
