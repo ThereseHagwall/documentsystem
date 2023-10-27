@@ -36,5 +36,5 @@ För att bygga och köra projektet lokalt, följ stegen nedan:
     ```bash
     npm run dev
 
-Öppna [http://localhost:3000](http://localhost:3000) för att se resultatet.
+Öppna [http://localhost:3000](http://localhost:3000) för att se din applikation.
 
