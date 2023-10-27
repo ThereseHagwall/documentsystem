@@ -15,7 +15,7 @@ export default function EditDocument() {
     });
 
     const router = useRouter();
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_TINY_API_KEY;
 
     const searchParams = useSearchParams();
     const documentId = searchParams.get("id");

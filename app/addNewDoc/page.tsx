@@ -17,7 +17,7 @@ export default function Page() {
     });
     const [errorMessage, setErrorMessage] = useState<string>("");
 
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_TINY_API_KEY;
     const router = useRouter();
 
     const handleInputChange = (
